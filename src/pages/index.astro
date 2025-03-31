@@ -9,9 +9,17 @@ import { getLangFromUrl, useTranslations } from '../i18n/ui';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// SEO metadata
+const pageTitle = 'בית';
+const pageDescription = 'משרד עורכי דין אהרן טולדאנו, מתמחה בנדל"ן, דיני משפחה, יפוי כוח מתמשך, חברות ועמותות וליטיגציה אזרחית. ייעוץ משפטי מקצועי בסטנדרטים גבוהים.';
 ---
 
-<Layout title="Home">
+<Layout 
+  title={pageTitle}
+  description={pageDescription}
+  image="/images/lawyer-portrait.PNG"
+>
   <Hero />
   
   <SectionDivider 

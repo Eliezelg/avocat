@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Hebrew (Default) -->
+  <url>
+    <loc>https://www.aat-law.co.il/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.aat-law.co.il/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aat-law.co.il/en/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.aat-law.co.il/fr/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aat-law.co.il/"/>
+  </url>
+  
+  <!-- English -->
+  <url>
+    <loc>https://www.aat-law.co.il/en/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.aat-law.co.il/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aat-law.co.il/en/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.aat-law.co.il/fr/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aat-law.co.il/"/>
+  </url>
+  
+  <!-- French -->
+  <url>
+    <loc>https://www.aat-law.co.il/fr/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.aat-law.co.il/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aat-law.co.il/en/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.aat-law.co.il/fr/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.aat-law.co.il/"/>
+  </url>
+</urlset>

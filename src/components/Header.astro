@@ -9,8 +9,8 @@ const t = useTranslations(lang);
 <header class="header">
   <div class="container">
     <div class="logo">
-      <a href={lang === 'he' ? '/' : `/${lang}/`} class="logo-link">
-        <img src="/images/logo.jpg" alt="Aaron Toledano Law Office" class="logo-image" />
+      <a href={lang === 'he' ? '/' : `/${lang}/`} class="logo-link" title={t('hero.title')} aria-label={t('hero.title')}>
+        <img src="/images/logo.jpg" alt={t('hero.title')} class="logo-image" width="auto" height="50" />
       </a>
     </div>
     
@@ -22,10 +22,26 @@ const t = useTranslations(lang);
       </button>
       
       <ul class="nav-links">
-        <li class="nav-item"><a href={lang === 'he' ? '/' : `/${lang}/`} class="nav-link">{t('nav.home')}</a></li>
-        <li class="nav-item"><a href={`${lang === 'he' ? '/' : `/${lang}/`}#services-anchor`} class="nav-link">{t('nav.services')}</a></li>
-        <li class="nav-item"><a href={`${lang === 'he' ? '/' : `/${lang}/`}#team-anchor`} class="nav-link">{t('nav.team')}</a></li>
-        <li class="nav-item"><a href={`${lang === 'he' ? '/' : `/${lang}/`}#contact-anchor`} class="nav-link">{t('nav.contact')}</a></li>
+        <li class="nav-item">
+          <a href={lang === 'he' ? '/' : `/${lang}/`} class="nav-link" title={t('nav.home')} aria-label={t('nav.home')}>
+            {t('nav.home')}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href={`${lang === 'he' ? '/' : `/${lang}/`}#services-anchor`} class="nav-link" title={t('services.title')} aria-label={t('services.title')}>
+            {t('nav.services')}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href={`${lang === 'he' ? '/' : `/${lang}/`}#team-anchor`} class="nav-link" title={t('team.title')} aria-label={t('team.title')}>
+            {t('nav.team')}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href={`${lang === 'he' ? '/' : `/${lang}/`}#contact-anchor`} class="nav-link" title={t('contact.title')} aria-label={t('contact.title')}>
+            {t('nav.contact')}
+          </a>
+        </li>
         <li class="nav-item language-picker-container">
           <LanguagePicker />
         </li>

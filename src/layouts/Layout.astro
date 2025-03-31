@@ -2,16 +2,50 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { getLangFromUrl, useTranslations } from '../i18n/ui';
+import { languages, getLangFromUrl, useTranslations } from '../i18n/ui';
 
 export interface Props {
   title: string;
+  description?: string;
+  image?: string;
+  canonicalUrl?: string;
 }
 
-const { title } = Astro.props;
+const { 
+  title, 
+  description, 
+  image = '/images/lawyer-portrait.PNG', 
+  canonicalUrl 
+} = Astro.props;
+
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const direction = t('direction');
+
+// SEO description either from props or default
+const metaDescription = description || t('hero.subtitle');
+
+// Create canonical URL
+const site = 'https://www.aat-law.co.il';
+const currentPath = Astro.url.pathname;
+const canonical = canonicalUrl || `${site}${currentPath}`;
+
+// Create alternate language URLs
+const alternateUrls = Object.keys(languages).map((supportedLang) => {
+  if (supportedLang === 'he') {
+    // Hebrew is the default at root
+    return { lang: 'he', url: `${site}${currentPath.replace(/^\/(en|fr)\//, '/')}` };
+  } else {
+    // Add language code for others
+    if (lang === 'he') {
+      // If current is Hebrew (at root), add language prefix
+      return { lang: supportedLang, url: `${site}/${supportedLang}${currentPath}` };
+    } else {
+      // Replace current language with the new one
+      return { lang: supportedLang, url: `${site}${currentPath.replace(`/${lang}/`, `/${supportedLang}/`)}` };
+    }
+  }
+});
 ---
 
 <!DOCTYPE html>
@@ -19,13 +53,83 @@ const direction = t('direction');
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="theme-color" content="#1A365D" />
+    
+    <!-- Security and cache control -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; script-src 'self' 'unsafe-inline';" />
+    <meta http-equiv="Cache-Control" content="max-age=86400" />
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Primary Meta Tags -->
     <title>{title} | {t('hero.title')}</title>
-    <meta name="description" content={t('hero.subtitle')} />
+    <meta name="title" content={`${title} | ${t('hero.title')}`} />
+    <meta name="description" content={metaDescription} />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonical} />
+    
+    <!-- Alternate language versions -->
+    {alternateUrls.map((altUrl) => (
+      <link rel="alternate" hreflang={altUrl.lang} href={altUrl.url} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={`${site}/`} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={`${title} | ${t('hero.title')}`} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:image" content={image.startsWith('http') ? image : `${site}${image}`} />
+    <meta property="og:locale" content={lang === 'he' ? 'he_IL' : lang === 'fr' ? 'fr_FR' : 'en_US'} />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonical} />
+    <meta property="twitter:title" content={`${title} | ${t('hero.title')}`} />
+    <meta property="twitter:description" content={metaDescription} />
+    <meta property="twitter:image" content={image.startsWith('http') ? image : `${site}${image}`} />
+    
+    <!-- Geo Tags -->
+    <meta name="geo.region" content="IL" />
+    <meta name="geo.placename" content="Israel" />
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Heebo:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "name": "${t('hero.title')}",
+        "image": "${site}/images/logo.jpg",
+        "url": "${canonical}",
+        "telephone": "+972555571194",
+        "email": "Aaron@aat-law.co.il",
+        "description": "${metaDescription}",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "IL",
+          "addressLocality": "Israel"
+        },
+        "serviceType": [
+          "${t('services.realEstate')}",
+          "${t('services.family')}",
+          "${t('services.poa')}",
+          "${t('services.companies')}",
+          "${t('services.litigation')}"
+        ],
+        "sameAs": [
+          "https://www.aat-law.co.il"
+        ]
+      }
+    </script>
   </head>
   <body class={direction === 'rtl' ? 'rtl' : 'ltr'}>
     <Header />

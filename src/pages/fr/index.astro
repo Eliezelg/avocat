@@ -9,9 +9,17 @@ import { getLangFromUrl, useTranslations } from '../../i18n/ui';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// SEO metadata
+const pageTitle = 'Accueil';
+const pageDescription = 'Le Cabinet d\'Avocats Aaron Toledano est spécialisé en Immobilier, Droit de la Famille, Procuration Continue, Entreprises et Associations, et Contentieux Civil. Conseil juridique professionnel aux normes élevées.';
 ---
 
-<Layout title="Accueil">
+<Layout 
+  title={pageTitle}
+  description={pageDescription}
+  image="/images/lawyer-portrait.PNG"
+>
   <Hero />
   
   <SectionDivider 

@@ -9,9 +9,17 @@ import { getLangFromUrl, useTranslations } from '../../i18n/ui';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// SEO metadata
+const pageTitle = 'Home';
+const pageDescription = 'Aaron Toledano Law Firm specializes in Real Estate, Family Law, Continuing Power of Attorney, Companies and Associations, and Civil Litigation. Professional legal counsel with high standards.';
 ---
 
-<Layout title="Home">
+<Layout 
+  title={pageTitle}
+  description={pageDescription}
+  image="/images/lawyer-portrait.PNG"
+>
   <Hero />
   
   <SectionDivider 

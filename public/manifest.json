@@ -1,0 +1,26 @@
+{
+  "name": "Aaron Toledano Law Firm",
+  "short_name": "AAT Law",
+  "description": "Professional legal counsel in Real Estate, Family Law, Continuing Power of Attorney, Companies and Associations, and Civil Litigation.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#1A365D",
+  "icons": [
+    {
+      "src": "/images/logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    }
+  ],
+  "lang": "he",
+  "dir": "rtl",
+  "orientation": "portrait-primary",
+  "categories": ["business", "legal", "professional services"],
+  "related_applications": [
+    {
+      "platform": "web",
+      "url": "https://www.aat-law.co.il"
+    }
+  ]
+}

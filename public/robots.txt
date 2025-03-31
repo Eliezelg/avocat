@@ -1,0 +1,8 @@
+# www.robotstxt.org/
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.aat-law.co.il/sitemap.xml
