@@ -10,7 +10,7 @@ const t = useTranslations(lang);
   <div class="container">
     <div class="logo">
       <a href={lang === 'he' ? '/' : `/${lang}/`} class="logo-link">
-        <img src="/images/logo.svg" alt="Aaron Toledano Law Office" class="logo-image" />
+        <img src="/images/logo.jpg" alt="Aaron Toledano Law Office" class="logo-image" />
       </a>
     </div>
     
@@ -88,9 +88,10 @@ const t = useTranslations(lang);
     height: 45px;
   }
   
-  .rtl .logo-image {
+  /* Removed logo flipping for RTL to maintain original logo orientation */
+  /*.rtl .logo-image {
     transform: scaleX(-1);
-  }
+  }*/
 
   .main-nav {
     display: flex;
