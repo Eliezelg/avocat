@@ -1,0 +1,95 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const currentYear = new Date().getFullYear();
+---
+
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h2>AAT</h2>
+      </div>
+      
+      <div class="footer-links">
+        <ul>
+          <li><a href={lang === 'he' ? '/' : `/${lang}/`}>{t('nav.home')}</a></li>
+          <li><a href={`${lang === 'he' ? '/' : `/${lang}/`}#services`}>{t('nav.services')}</a></li>
+          <li><a href={`${lang === 'he' ? '/' : `/${lang}/`}#team`}>{t('nav.team')}</a></li>
+          <li><a href={`${lang === 'he' ? '/' : `/${lang}/`}#contact`}>{t('nav.contact')}</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      <p>&copy; {currentYear} - {t('footer.rights')}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background-color: #2C3E50;
+    color: white;
+    padding: 3rem 2rem 1.5rem;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .footer-logo h2 {
+    margin: 0;
+    font-size: 2rem;
+    color: white;
+  }
+
+  .footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-links a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer-links a:hover {
+    color: #E74C3C;
+  }
+
+  .copyright {
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  @media (max-width: 768px) {
+    .footer-content {
+      flex-direction: column;
+      text-align: center;
+      gap: 1.5rem;
+    }
+    
+    .footer-links ul {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+</style>

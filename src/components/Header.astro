@@ -1,0 +1,161 @@
+---
+import LanguagePicker from './LanguagePicker.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<header>
+  <div class="container">
+    <div class="logo">
+      <a href={lang === 'he' ? '/' : `/${lang}/`}>
+        <h1>AAT</h1>
+      </a>
+    </div>
+    
+    <nav>
+      <div class="mobile-menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      
+      <ul class="nav-links">
+        <li><a href={lang === 'he' ? '/' : `/${lang}/`}>{t('nav.home')}</a></li>
+        <li><a href={`${lang === 'he' ? '/' : `/${lang}/`}#services`}>{t('nav.services')}</a></li>
+        <li><a href={`${lang === 'he' ? '/' : `/${lang}/`}#team`}>{t('nav.team')}</a></li>
+        <li><a href={`${lang === 'he' ? '/' : `/${lang}/`}#contact`}>{t('nav.contact')}</a></li>
+        <li class="language-picker-container">
+          <LanguagePicker />
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  header {
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .logo h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2C3E50;
+  }
+
+  .logo a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2rem;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: #333333;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    color: #E74C3C;
+  }
+
+  .mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+  }
+
+  .mobile-menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background-color: #2C3E50;
+    transition: all 0.3s ease;
+  }
+
+  @media (max-width: 768px) {
+    .mobile-menu-toggle {
+      display: flex;
+    }
+
+    .nav-links {
+      position: fixed;
+      top: 70px;
+      right: -100%;
+      flex-direction: column;
+      background-color: #FFFFFF;
+      width: 80%;
+      height: calc(100vh - 70px);
+      padding: 2rem;
+      transition: right 0.3s ease;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+      z-index: 99;
+    }
+
+    .rtl .nav-links {
+      right: auto;
+      left: -100%;
+      transition: left 0.3s ease;
+    }
+
+    .nav-links.active {
+      right: 0;
+    }
+    
+    .rtl .nav-links.active {
+      left: 0;
+      right: auto;
+    }
+  }
+</style>
+
+<script>
+  // Toggle mobile menu
+  const menuToggle = document.querySelector('.mobile-menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  if (menuToggle && navLinks) {
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  }
+
+  // Close menu when clicking on a link
+  const links = document.querySelectorAll('.nav-links a');
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks?.classList.remove('active');
+    });
+  });
+</script>

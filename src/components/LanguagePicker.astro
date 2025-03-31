@@ -1,0 +1,112 @@
+---
+import { languages, getLangFromUrl } from '../i18n/ui';
+
+const currentLang = getLangFromUrl(Astro.url);
+---
+
+<div class="language-picker">
+  <select id="language-select">
+    {Object.entries(languages).map(([code, label]) => (
+      <option value={code} selected={currentLang === code}>{label}</option>
+    ))}
+  </select>
+</div>
+
+<style>
+  .language-picker {
+    position: relative;
+  }
+
+  select {
+    padding: 0.4rem 0.8rem;
+    border: 1px solid #2C3E50;
+    border-radius: 4px;
+    background-color: white;
+    color: #2C3E50;
+    font-family: var(--font-heading);
+    cursor: pointer;
+    appearance: none;
+    padding-right: 1.5rem;
+  }
+
+  .rtl select {
+    padding-right: 0.8rem;
+    padding-left: 1.5rem;
+  }
+
+  .language-picker::after {
+    content: '▼';
+    font-size: 0.7rem;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #2C3E50;
+  }
+
+  .rtl .language-picker::after {
+    right: auto;
+    left: 10px;
+  }
+
+  select:focus {
+    outline: none;
+    border-color: #E74C3C;
+  }
+</style>
+
+<script>
+  const languageSelect = document.getElementById('language-select');
+  
+  languageSelect?.addEventListener('change', (e) => {
+    const target = e.target as HTMLSelectElement;
+    const newLang = target.value;
+    
+    // Get current URL parts
+    const currentUrl = window.location.pathname;
+    const parts = currentUrl.split('/').filter(Boolean);
+    
+    // Check if we have a language code at the beginning
+    const firstPart = parts[0];
+    const isCurrentLangPath = ['he', 'en', 'fr'].includes(firstPart);
+    
+    // Construct new URL
+    let newUrl;
+    
+    if (newLang === 'he') {
+      // For Hebrew, go to root
+      newUrl = '/';
+      if (isCurrentLangPath) {
+        // If we have other path components, keep them
+        if (parts.length > 1) {
+          newUrl += parts.slice(1).join('/');
+        }
+      } else {
+        // Keep the entire current path
+        newUrl += parts.join('/');
+      }
+    } else {
+      // For other languages
+      newUrl = `/${newLang}/`;
+      
+      if (isCurrentLangPath) {
+        // If current URL already has language code, replace it
+        if (parts.length > 1) {
+          newUrl += parts.slice(1).join('/');
+        }
+      } else {
+        // Keep the entire current path
+        newUrl += parts.join('/');
+      }
+    }
+    
+    // Add trailing slash if needed
+    if (!newUrl.endsWith('/')) {
+      newUrl += '/';
+    }
+    
+    // Navigate to new URL
+    window.location.href = newUrl;
+  });
+</script>
