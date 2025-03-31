@@ -8,7 +8,9 @@ const { imageUrl, title, textAlign = 'center', id } = Astro.props;
   <div class="overlay"></div>
   {title && 
     <div class="container">
-      <h2 class={`section-title text-${textAlign}`}>{title}</h2>
+      <div class="title-card">
+        <h2 class={`section-title text-${textAlign}`}>{title}</h2>
+      </div>
     </div>
   }
 </div>
@@ -57,12 +59,43 @@ const { imageUrl, title, textAlign = 'center', id } = Astro.props;
     padding: 0 var(--spacing-xl);
   }
 
+  .title-card {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 1.5rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(30px);
+    position: relative;
+    transition: all 0.5s ease;
+    min-width: 220px;
+    max-width: 80%;
+    margin: 0 auto;
+  }
+  
+  .section-divider:hover .title-card {
+    transform: translateY(20px);
+  }
+  
   .section-title {
     margin: 0;
     font-size: var(--text-3xl);
     font-weight: 700;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    color: var(--color-primary);
     position: relative;
+  }
+  
+  .title-card::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.9);
+    transform-origin: center;
+    rotate: 45deg;
+    z-index: -1;
   }
 
   @media (max-width: 768px) {
