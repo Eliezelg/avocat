@@ -9,12 +9,10 @@ const t = useTranslations(lang);
   <span class="anchor-target" id="team-anchor"></span>
   
   <div class="container">
+    <h2 class="section-title">{t('team.title')}</h2>
     <div class="team-member">
       <div class="member-photo">
-        <!-- Using a placeholder professional silhouette SVG -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="150" height="150">
-          <path fill="#2C3E50" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
-        </svg>
+        <img src="/images/lawyer.svg" alt="Aaron Toledano" class="member-img" />
       </div>
       <div class="member-info">
         <h3>{t('team.aaron.name')}</h3>
@@ -128,10 +126,22 @@ const t = useTranslations(lang);
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     transform: rotate(-3deg);
     transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .member-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
   }
   
   .team-member:hover .member-photo {
     transform: rotate(0deg) translateY(-5px);
+  }
+  
+  .team-member:hover .member-img {
+    transform: scale(1.05);
   }
 
   .rtl .member-photo {

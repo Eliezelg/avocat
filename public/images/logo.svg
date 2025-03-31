@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- AT Logo with gold and navy colors -->
+  <g transform="translate(100, 0) scale(0.6)">
+    <!-- 'A' in gold -->
+    <path fill="#C8A05F" d="M350 50 L500 550 L400 550 L370 480 L170 480 L140 550 L40 550 L190 50 L350 50 Z M340 380 L270 200 L200 380 L340 380 Z" />
+    
+    <!-- 'T' in navy -->
+    <path fill="#2C3E50" d="M520 150 L520 50 L860 50 L860 150 L740 150 L740 550 L640 550 L640 150 L520 150 Z" />
+    
+    <!-- Lower parts of the letters -->
+    <path fill="#C8A05F" d="M100 600 L150 600 L180 650 L300 650 L300 620 L400 620 L400 650 L520 650 L545 600 L600 600" />
+    <path fill="#2C3E50" d="M600 600 L650 600 L680 650 L800 650 L800 600 L850 600" />
+  </g>
+  
+  <!-- Text "AARON TOLEDANO" in gold -->
+  <g transform="translate(400, 395) scale(0.9)">
+    <text x="-250" y="0" font-family="Arial, sans-serif" font-weight="bold" font-size="50" fill="#C8A05F" text-anchor="middle">AARON TOLEDANO</text>
+  </g>
+  
+  <!-- Text "LAW OFFICE" in navy -->
+  <g transform="translate(400, 450) scale(0.9)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-weight="bold" font-size="45" fill="#2C3E50" text-anchor="middle">LAW OFFICE</text>
+  </g>
+</svg>

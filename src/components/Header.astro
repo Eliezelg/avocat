@@ -10,9 +10,7 @@ const t = useTranslations(lang);
   <div class="container">
     <div class="logo">
       <a href={lang === 'he' ? '/' : `/${lang}/`} class="logo-link">
-        <span class="logo-text">AAT</span>
-        <span class="logo-separator">|</span>
-        <span class="logo-tagline">Law Firm</span>
+        <img src="/images/logo.svg" alt="Aaron Toledano Law Office" class="logo-image" />
       </a>
     </div>
     
@@ -73,34 +71,25 @@ const t = useTranslations(lang);
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: var(--color-primary);
-    transition: color var(--transition-normal);
+    transition: transform var(--transition-normal);
   }
 
   .logo-link:hover {
-    color: var(--color-accent);
+    transform: scale(1.02);
   }
-
-  .logo-text {
-    font-weight: 700;
-    font-size: 1.8rem;
-    letter-spacing: 1px;
+  
+  .logo-image {
+    height: 50px;
+    width: auto;
+    transition: all var(--transition-normal);
   }
-
-  .logo-separator {
-    margin: 0 10px;
-    color: var(--color-accent);
-    font-weight: 300;
+  
+  .header.scrolled .logo-image {
+    height: 45px;
   }
-
-  .logo-tagline {
-    font-weight: 500;
-    font-size: 1rem;
-    color: var(--color-text-light);
-  }
-
-  .rtl .logo-tagline {
-    margin-right: auto;
+  
+  .rtl .logo-image {
+    transform: scaleX(-1);
   }
 
   .main-nav {
