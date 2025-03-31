@@ -5,108 +5,220 @@ const currentLang = getLangFromUrl(Astro.url);
 ---
 
 <div class="language-picker">
-  <select id="language-select">
+  <button id="language-toggle" class="language-toggle" aria-label="Select language">
+    <span class="current-language">{languages[currentLang]}</span>
+    <svg class="toggle-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </button>
+  <ul id="language-dropdown" class="language-dropdown">
     {Object.entries(languages).map(([code, label]) => (
-      <option value={code} selected={currentLang === code}>{label}</option>
+      <li class={`language-option ${code === currentLang ? 'active' : ''}`}>
+        <button class="language-button" data-lang-code={code}>
+          {label}
+          {code === currentLang && (
+            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          )}
+        </button>
+      </li>
     ))}
-  </select>
+  </ul>
 </div>
 
 <style>
   .language-picker {
     position: relative;
+    display: inline-block;
+    z-index: 10;
   }
 
-  select {
-    padding: 0.4rem 0.8rem;
-    border: 1px solid #2C3E50;
-    border-radius: 4px;
-    background-color: white;
-    color: #2C3E50;
-    font-family: var(--font-heading);
+  .language-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-size: var(--text-sm);
     cursor: pointer;
-    appearance: none;
-    padding-right: 1.5rem;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-sm);
   }
 
-  .rtl select {
-    padding-right: 0.8rem;
-    padding-left: 1.5rem;
+  .language-toggle:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-md);
   }
 
-  .language-picker::after {
-    content: '▼';
-    font-size: 0.7rem;
+  .current-language {
+    font-weight: 500;
+  }
+
+  .toggle-icon {
+    transition: transform var(--transition-normal);
+  }
+
+  .language-dropdown {
     position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: calc(100% + 5px);
+    right: 0;
+    min-width: 140px;
+    background-color: var(--color-background);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    opacity: 0;
     pointer-events: none;
-    color: #2C3E50;
+    transform: translateY(-10px);
+    transition: all var(--transition-normal);
+    z-index: 20;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid var(--color-border);
   }
 
-  .rtl .language-picker::after {
+  .rtl .language-dropdown {
     right: auto;
-    left: 10px;
+    left: 0;
   }
 
-  select:focus {
-    outline: none;
-    border-color: #E74C3C;
+  .language-dropdown.open {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
+
+  .language-option {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .language-option:last-child {
+    border-bottom: none;
+  }
+
+  .language-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--color-text);
+    font-size: var(--text-sm);
+    transition: background-color var(--transition-normal);
+  }
+
+  .rtl .language-button {
+    text-align: right;
+  }
+
+  .language-option:hover .language-button {
+    background-color: var(--color-background-alt);
+  }
+
+  .language-option.active .language-button {
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  .check-icon {
+    color: var(--color-accent);
   }
 </style>
 
 <script>
-  const languageSelect = document.getElementById('language-select');
-  
-  languageSelect?.addEventListener('change', (e) => {
-    const target = e.target as HTMLSelectElement;
-    const newLang = target.value;
-    
-    // Get current URL parts
-    const currentUrl = window.location.pathname;
-    const parts = currentUrl.split('/').filter(Boolean);
-    
-    // Check if we have a language code at the beginning
-    const firstPart = parts[0];
-    const isCurrentLangPath = ['he', 'en', 'fr'].includes(firstPart);
-    
-    // Construct new URL
-    let newUrl;
-    
-    if (newLang === 'he') {
-      // For Hebrew, go to root
-      newUrl = '/';
-      if (isCurrentLangPath) {
-        // If we have other path components, keep them
-        if (parts.length > 1) {
-          newUrl += parts.slice(1).join('/');
-        }
+  document.addEventListener('DOMContentLoaded', () => {
+    // Get elements
+    const languageToggle = document.getElementById('language-toggle');
+    const toggleIcon = document.querySelector('.toggle-icon');
+    const languageDropdown = document.getElementById('language-dropdown');
+    const languageButtons = document.querySelectorAll('.language-button');
+
+    // Toggle dropdown
+    languageToggle?.addEventListener('click', () => {
+      if (languageDropdown?.classList.contains('open')) {
+        languageDropdown.classList.remove('open');
+        toggleIcon?.style.setProperty('transform', 'rotate(0)');
       } else {
-        // Keep the entire current path
-        newUrl += parts.join('/');
+        languageDropdown?.classList.add('open');
+        toggleIcon?.style.setProperty('transform', 'rotate(180deg)');
       }
-    } else {
-      // For other languages
-      newUrl = `/${newLang}/`;
-      
-      if (isCurrentLangPath) {
-        // If current URL already has language code, replace it
-        if (parts.length > 1) {
-          newUrl += parts.slice(1).join('/');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.composedPath().includes(languageToggle) && !e.composedPath().includes(languageDropdown)) {
+        languageDropdown?.classList.remove('open');
+        toggleIcon?.style.setProperty('transform', 'rotate(0)');
+      }
+    });
+
+    // Language selection logic
+    languageButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const newLang = button.getAttribute('data-lang-code');
+        
+        if (!newLang) return;
+        
+        // Get current URL parts
+        const currentUrl = window.location.pathname;
+        const parts = currentUrl.split('/').filter(Boolean);
+        
+        // Check if we have a language code at the beginning
+        const firstPart = parts[0];
+        const isCurrentLangPath = ['he', 'en', 'fr'].includes(firstPart);
+        
+        // Construct new URL
+        let newUrl;
+        
+        if (newLang === 'he') {
+          // For Hebrew, go to root
+          newUrl = '/';
+          if (isCurrentLangPath) {
+            // If we have other path components, keep them
+            if (parts.length > 1) {
+              newUrl += parts.slice(1).join('/');
+            }
+          } else {
+            // Keep the entire current path
+            newUrl += parts.join('/');
+          }
+        } else {
+          // For other languages
+          newUrl = `/${newLang}/`;
+          
+          if (isCurrentLangPath) {
+            // If current URL already has language code, replace it
+            if (parts.length > 1) {
+              newUrl += parts.slice(1).join('/');
+            }
+          } else {
+            // Keep the entire current path
+            newUrl += parts.join('/');
+          }
         }
-      } else {
-        // Keep the entire current path
-        newUrl += parts.join('/');
-      }
-    }
-    
-    // Add trailing slash if needed
-    if (!newUrl.endsWith('/')) {
-      newUrl += '/';
-    }
-    
-    // Navigate to new URL
-    window.location.href = newUrl;
+        
+        // Add trailing slash if needed
+        if (!newUrl.endsWith('/')) {
+          newUrl += '/';
+        }
+        
+        // Add hash if it exists in current URL
+        if (window.location.hash) {
+          newUrl += window.location.hash;
+        }
+        
+        // Navigate to new URL
+        window.location.href = newUrl;
+      });
+    });
   });
 </script>
