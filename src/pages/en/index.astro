@@ -4,6 +4,7 @@ import Hero from '../../components/Hero.astro';
 import Services from '../../components/Services.astro';
 import Team from '../../components/Team.astro';
 import Contact from '../../components/Contact.astro';
+import SectionDivider from '../../components/SectionDivider.astro';
 import { getLangFromUrl, useTranslations } from '../../i18n/ui';
 
 const lang = getLangFromUrl(Astro.url);
@@ -12,7 +13,25 @@ const t = useTranslations(lang);
 
 <Layout title="Home">
   <Hero />
+  
+  <SectionDivider 
+    id="services-divider-en"
+    imageUrl="https://images.unsplash.com/photo-1589391886645-d51941baf7fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+    title={t('nav.services')}
+  />
   <Services />
+  
+  <SectionDivider 
+    id="team-divider-en"
+    imageUrl="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80"
+    title={t('nav.team')}
+  />
   <Team />
+  
+  <SectionDivider 
+    id="contact-divider-en"
+    imageUrl="https://images.unsplash.com/photo-1532619187608-e5375cab36aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+    title={t('nav.contact')}
+  />
   <Contact />
 </Layout>

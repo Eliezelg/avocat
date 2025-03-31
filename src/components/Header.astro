@@ -25,9 +25,9 @@ const t = useTranslations(lang);
       
       <ul class="nav-links">
         <li class="nav-item"><a href={lang === 'he' ? '/' : `/${lang}/`} class="nav-link">{t('nav.home')}</a></li>
-        <li class="nav-item"><a href={`${lang === 'he' ? '/' : `/${lang}/`}#services`} class="nav-link">{t('nav.services')}</a></li>
-        <li class="nav-item"><a href={`${lang === 'he' ? '/' : `/${lang}/`}#team`} class="nav-link">{t('nav.team')}</a></li>
-        <li class="nav-item"><a href={`${lang === 'he' ? '/' : `/${lang}/`}#contact`} class="nav-link">{t('nav.contact')}</a></li>
+        <li class="nav-item"><a href={`${lang === 'he' ? '/' : `/${lang}/`}#services-anchor`} class="nav-link">{t('nav.services')}</a></li>
+        <li class="nav-item"><a href={`${lang === 'he' ? '/' : `/${lang}/`}#team-anchor`} class="nav-link">{t('nav.team')}</a></li>
+        <li class="nav-item"><a href={`${lang === 'he' ? '/' : `/${lang}/`}#contact-anchor`} class="nav-link">{t('nav.contact')}</a></li>
         <li class="nav-item language-picker-container">
           <LanguagePicker />
         </li>

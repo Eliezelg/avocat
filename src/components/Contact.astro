@@ -6,8 +6,9 @@ const t = useTranslations(lang);
 ---
 
 <section id="contact" class="contact" aria-label="Contact section">
+  <span class="anchor-target" id="contact-anchor"></span>
+  
   <div class="container">
-    <h2 class="section-title">{t('contact.title')}</h2>
     
     <div class="contact-info">
       <div class="contact-item">
@@ -56,6 +57,13 @@ const t = useTranslations(lang);
   .contact {
     padding: 5rem 2rem;
     background-color: #f9f9f9;
+  }
+  
+  .anchor-target {
+    display: block;
+    position: relative;
+    top: -100px;
+    visibility: hidden;
   }
 
   .container {

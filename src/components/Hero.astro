@@ -13,8 +13,8 @@ const t = useTranslations(lang);
       <h1 class="hero-title">{t('hero.title')}</h1>
       <p class="hero-subtitle">{t('hero.subtitle')}</p>
       <div class="hero-cta">
-        <a href="#contact" class="btn primary-btn">{t('hero.cta')}</a>
-        <a href="#services" class="btn accent-outline-btn">
+        <a href="#contact-anchor" class="btn primary-btn">{t('hero.cta')}</a>
+        <a href="#services-anchor" class="btn accent-outline-btn">
           {t('nav.services')}
         </a>
       </div>
@@ -48,12 +48,12 @@ const t = useTranslations(lang);
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
-      url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+      url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
     background-size: cover;
     background-position: center;
     transform: scale(1.05);
-    filter: blur(3px);
+    filter: blur(2px);
     animation: zoomBackground 15s infinite alternate ease-in-out;
   }
 
