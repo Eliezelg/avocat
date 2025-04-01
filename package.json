@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "render-build": "npm install && npm run build",
     "preview": "astro preview",
     "optimize-images": "npx sharp-cli --input './public/images/**/*.{jpg,png}' --output './public/images/optimized/' --format webp --quality 80",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,6 +20,6 @@
   },
   "devDependencies": {
     "sharp": "^0.33.5",
-    "sharp-cli": "^4.2.0"
+    "sharp-cli": "^4.1.1"
   }
 }
