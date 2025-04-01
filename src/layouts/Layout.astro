@@ -14,7 +14,7 @@ export interface Props {
 const { 
   title, 
   description, 
-  image = '/images/lawyer-portrait.PNG', 
+  image = '/images/lawyer-portrait.png', 
   canonicalUrl 
 } = Astro.props;
 
@@ -57,8 +57,12 @@ const alternateUrls = Object.keys(languages).map((supportedLang) => {
     <meta name="theme-color" content="#1A365D" />
     
     <!-- Security and cache control -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; script-src 'self' 'unsafe-inline';" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; script-src 'self' 'unsafe-inline'; connect-src 'self' ws:;" />
     <meta http-equiv="Cache-Control" content="max-age=86400" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -137,5 +141,21 @@ const alternateUrls = Object.keys(languages).map((supportedLang) => {
       <slot />
     </main>
     <Footer />
+    
+    <!-- Script d'enregistrement du Service Worker -->
+    <script>
+      // Enregistrement du Service Worker pour améliorer les performances
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+              console.log('Service Worker enregistré avec succès:', registration.scope);
+            })
+            .catch(error => {
+              console.log('Échec de l\'enregistrement du Service Worker:', error);
+            });
+        });
+      }
+    </script>
   </body>
 </html>
