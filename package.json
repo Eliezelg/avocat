@@ -6,10 +6,13 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "render-build": "npm install && npm run build",
+    "render-build": "bash ./build.sh",
     "preview": "astro preview",
     "optimize-images": "npx sharp-cli --input './public/images/**/*.{jpg,png}' --output './public/images/optimized/' --format webp --quality 80",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "keywords": [],
   "author": "",
